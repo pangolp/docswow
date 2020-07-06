@@ -1,40 +1,40 @@
-**Fuente:** http://www.ac-web.org/forums/archive/index.php/t-181048.html
+# [How to: Custom Races!](http://www.ac-web.org/forums/showthread.php?181048-How-to-Custom-Races!)
 
-1. Introduction
+**1. Introduction**
 
 Okay so now I've been trying to make custom races for a week or so because the only guide made was for an earlier patch and the people who knew what to do wouldn't respond to my questions or just simply ignored me. So now I'm sharing what I've found out on how to create your own custom race.
 
 So what you have to understand for a start is that you can't have all custom races such as pigs or something else, it has to be a race that's actually defined, now you'll probably ask me: "which is defined?", well let's take a look:
 
-(From SharedDefines.h)
+**SharedDefines.h**
 
-
+```c++
 enum Races
 {
-RACE_NONE = 0,
-RACE_HUMAN = 1,
-RACE_ORC = 2,
-RACE_DWARF = 3,
-RACE_NIGHTELF = 4,
-RACE_UNDEAD_PLAYER = 5,
-RACE_TAUREN = 6,
-RACE_GNOME = 7,
-RACE_TROLL = 8,
-//RACE_GOBLIN = 9,
-RACE_BLOODELF = 10,
-RACE_DRAENEI = 11,
-//RACE_FEL_ORC = 12
-//RACE_NAGA = 13,
-//RACE_BROKEN = 14,
-//RACE_SKELETON = 15,
-//RACE_VRYKUL = 16,
-//RACE_TUSKARR = 17,
-//RACE_FOREST_TROLL = 18,
-//RACE_TAUNKA = 19,
-//RACE_NORTHREND_SKELETON = 20,
-//RACE_ICE_TROLL = 21
+	RACE_NONE = 0,
+	RACE_HUMAN = 1,
+	RACE_ORC = 2,
+	RACE_DWARF = 3,
+	RACE_NIGHTELF = 4,
+	RACE_UNDEAD_PLAYER = 5,
+	RACE_TAUREN = 6,
+	RACE_GNOME = 7,
+	RACE_TROLL = 8,
+	//RACE_GOBLIN = 9,
+	RACE_BLOODELF = 10,
+	RACE_DRAENEI = 11,
+	//RACE_FEL_ORC = 12
+	//RACE_NAGA = 13,
+	//RACE_BROKEN = 14,
+	//RACE_SKELETON = 15,
+	//RACE_VRYKUL = 16,
+	//RACE_TUSKARR = 17,
+	//RACE_FOREST_TROLL = 18,
+	//RACE_TAUNKA = 19,
+	//RACE_NORTHREND_SKELETON = 20,
+	//RACE_ICE_TROLL = 21
 };
-
+```
 
 That is the current races that is playable. What I'm going to teach you today is how to add two of them: The Goblin and the Fel Orc.
 
@@ -44,37 +44,31 @@ This is not and easy guide, don't expect me to hand out information if you don't
 I will provide information that I found worked for me
 I don't care if anything I do is "hacky".
 
-
-2. Getting The Files
-
+**Getting The Files**
 Okay, we'll start editing the DBC files, the ones you need are:
 
-ChrRaces.dbc
-
-CharBaseInfo.dbc
-
-CharStartOutfit.dbc
-
-SkillLineAbility.dbc
-
-SkillRaceClassInfo.dbc
-
-Faction.dbc
+ - ChrRaces.dbc
+ - CharBaseInfo.dbc
+ - CharStartOutfit.dbc
+ - SkillLineAbility.dbc
+ - SkillRaceClassInfo.dbc
+ - Faction.dbc
 
 You can extract them from the core/dbc, it's the same as in the client. You'll also have to get some Lua and XML files from the blizzard patches so that you can edit the character creation screen. Those files are:
 
-
+```
 patch-enXX-3.mpq\Interface\GlueXML\GlueStrings.lua
 patch-enXX-3.mpq\Interface\GlueXML\GlueParent.lua
 
 patch-enXX-2.mpq\Interface\GlueXML\CharacterCreate.lua
 patch-enXX-2.mpq\Interface\GlueXML\CharacterCreate.xml
-[/code
+```
 
 Okay, great so some of you will maybe ask how to extract those, what you do is get your favorite MPQ Editor, you can use whichever you like (google it if you don't have one) and open the patches with it, go to the path the I wrote above in the MPQ file and drag it somewhere in a folder for this project of yours.
 
 Now that we got all our files we need to arrange them, make a new folder called "RacePatch" on your desktop which should look like this:
-[code]
+
+```
 RacePatch\Interface\GlueXML\GlueStrings.lua
 RacePatch\Interface\GlueXML\GlueParent.lua
 RacePatch\Interface\GlueXML\CharacterCreate.lua
@@ -86,17 +80,19 @@ RacePatch\DBFilesClient\CharStartOutfit.dbc
 RacePatch\DBFilesClient\SkillLineAbility.dbc
 RacePatch\DBFilesClient\SkillRaceClassInfo.dbc
 RacePatch\DBFilesClient\Faction.dbc
-
+```
 
 Now that we got our desired files smoothly lined up we can go on to the editing of them.
 
-3. Editing The DBC Files
+**Editing The DBC Files**
 
 For this, unless stated otherwise, use your favorite DBC editor.
 
-Firstly open up your ChrRaces.dbc, you'll see all the races I listed above shows up, now what you want to do is fine these 2 lines:
+Firstly open up your **ChrRaces.dbc**, you'll see all the races I listed above shows up, now what you want to do is fine these 2 lines:
 
+```csv
 9,1,1,0x0,6894,6895,"Go",7,7,15007,0x448,"Goblin",0,0x2,,,"Goblin",,,,,,,,,,,,,,0xFF01FE,,,"Goblin",,,,,,,,,,,,,,0xFF01CC,,,"Gobelin",,,,,,,,,,,,,,0xFF01CC,"NORMAL","NONE","NORMAL",0,
+```
 
 12,5,1,0x0,16981,16980,"Fo",7,7,15007,0x448,"FelOrc",0,0x2,,,"Fel Orc",,,,,,,,,,,,,,0xFF01FE,,,"Fel Orc",,,,,,,,,,,,,,0xFF01CC,,,"Fel Orc",,,,,,,,,,,,,,0xFF01CC,"NORMAL","NORMAL","NORMAL",0,
 
