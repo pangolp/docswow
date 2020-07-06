@@ -390,202 +390,236 @@ Now you should have something like this if you did it right: http://img11.images
 
 Done with client side modifications :-)
 
-5. Server-Side Modifications
+**Server-Side Modifications**
 
-Now in this last part we want to edit the server side so you can actually play these races :-)
+Now in this last part we want to edit the server side so you can actually play these races
 
-Go to SharedDefines.h in your core and open it up
+Go to **SharedDefines.h** in your core and open it up
 
 Find:
 
+```c++
 enum Races
 {
-RACE_NONE = 0,
-RACE_HUMAN = 1,
-RACE_ORC = 2,
-RACE_DWARF = 3,
-RACE_NIGHTELF = 4,
-RACE_UNDEAD_PLAYER = 5,
-RACE_TAUREN = 6,
-RACE_GNOME = 7,
-RACE_TROLL = 8,
-//RACE_GOBLIN = 9,
-RACE_BLOODELF = 10,
-RACE_DRAENEI = 11,
-//RACE_FEL_ORC = 12
-//RACE_NAGA = 13,
-//RACE_BROKEN = 14,
-//RACE_SKELETON = 15,
-//RACE_VRYKUL = 16,
-//RACE_TUSKARR = 17,
-//RACE_FOREST_TROLL = 18,
-//RACE_TAUNKA = 19,
-//RACE_NORTHREND_SKELETON = 20,
-//RACE_ICE_TROLL = 21
+	RACE_NONE = 0,
+	RACE_HUMAN = 1,
+	RACE_ORC = 2,
+	RACE_DWARF = 3,
+	RACE_NIGHTELF = 4,
+	RACE_UNDEAD_PLAYER = 5,
+	RACE_TAUREN = 6,
+	RACE_GNOME = 7,
+	RACE_TROLL = 8,
+	//RACE_GOBLIN = 9,
+	RACE_BLOODELF = 10,
+	RACE_DRAENEI = 11,
+	//RACE_FEL_ORC = 12
+	//RACE_NAGA = 13,
+	//RACE_BROKEN = 14,
+	//RACE_SKELETON = 15,
+	//RACE_VRYKUL = 16,
+	//RACE_TUSKARR = 17,
+	//RACE_FOREST_TROLL = 18,
+	//RACE_TAUNKA = 19,
+	//RACE_NORTHREND_SKELETON = 20,
+	//RACE_ICE_TROLL = 21
 };
+```
 
 Replace by:
 
+```c++
 enum Races
 {
-RACE_NONE = 0,
-RACE_HUMAN = 1,
-RACE_ORC = 2,
-RACE_DWARF = 3,
-RACE_NIGHTELF = 4,
-RACE_UNDEAD_PLAYER = 5,
-RACE_TAUREN = 6,
-RACE_GNOME = 7,
-RACE_TROLL = 8,
-RACE_GOBLIN = 9,
-RACE_BLOODELF = 10,
-RACE_DRAENEI = 11,
-RACE_FEL_ORC = 12
-//RACE_NAGA = 13,
-//RACE_BROKEN = 14,
-//RACE_SKELETON = 15,
-//RACE_VRYKUL = 16,
-//RACE_TUSKARR = 17,
-//RACE_FOREST_TROLL = 18,
-//RACE_TAUNKA = 19,
-//RACE_NORTHREND_SKELETON = 20,
-//RACE_ICE_TROLL = 21
+	RACE_NONE = 0,
+	RACE_HUMAN = 1,
+	RACE_ORC = 2,
+	RACE_DWARF = 3,
+	RACE_NIGHTELF = 4,
+	RACE_UNDEAD_PLAYER = 5,
+	RACE_TAUREN = 6,
+	RACE_GNOME = 7,
+	RACE_TROLL = 8,
+	RACE_GOBLIN = 9,
+	RACE_BLOODELF = 10,
+	RACE_DRAENEI = 11,
+	RACE_FEL_ORC = 12
+	//RACE_NAGA = 13,
+	//RACE_BROKEN = 14,
+	//RACE_SKELETON = 15,
+	//RACE_VRYKUL = 16,
+	//RACE_TUSKARR = 17,
+	//RACE_FOREST_TROLL = 18,
+	//RACE_TAUNKA = 19,
+	//RACE_NORTHREND_SKELETON = 20,
+	//RACE_ICE_TROLL = 21
 };
+```
 
 Now find:
 
+```c++
 #define MAX_RACES 12
-
+```
 and replace with
-
+```c++
 #define MAX_RACES 13
+```
 
 The max_races variable is basically just the race number + 1 so if you had let's say Tuskarr for you highest number race it would be 17+1=18, pretty simple, ah?
 
 Now find
+```c++
 #define RACEMASK_ALL_PLAYABLE \
 ((1<<(RACE_HUMAN-1)) |(1<<(RACE_ORC-1)) |(1<<(RACE_DWARF-1)) | \
 (1<<(RACE_NIGHTELF-1))|(1<<(RACE_UNDEAD_PLAYER-1))|(1<<(RACE_TAUREN-1)) | \
 (1<<(RACE_GNOME-1)) |(1<<(RACE_TROLL-1)) |(1<<(RACE_BLOODELF-1))| \
 (1<<(RACE_DRAENEI-1)))
+```
 
 and replace it with:
 
+```c++
 #define RACEMASK_ALL_PLAYABLE \
 ((1<<(RACE_HUMAN-1)) |(1<<(RACE_ORC-1)) |(1<<(RACE_DWARF-1)) | \
 (1<<(RACE_NIGHTELF-1))|(1<<(RACE_UNDEAD_PLAYER-1))|(1<<(RACE_TAUREN-1)) | \
 (1<<(RACE_GNOME-1)) |(1<<(RACE_TROLL-1)) |(1<<(RACE_GOBLIN-1))| \
 (1<<(RACE_BLOODELF-1))|(1<<(RACE_DRAENEI-1)) |(1<<(RACE_FEL_ORC-1)) )
+```
 
 Now you're done with the core mods.. Moving on to..
 
-6. SQL Modifications:
+**SQL Modifications:**
 
 Some querys you'd have to run (copy pasted from modcraft):
-Adding spells to the Goblin Warrior (copied from the Human Warrior) :
+Adding spells to the Goblin Warrior (copied from the Human Warrior):
 
+```sql
 SET @NEW_RACE = 9; -- ID of adding race.
 SET @NEW_CLASS = 1; -- ID of class of the new race.
 SET @COPY_RACE = 1; -- ID of the race where we copy datas.
-DELETE FROM `playercreateinfo_spell` WHERE race = @NEW_RACE AND class = @NEW_CLASS ;
+DELETE FROM `playercreateinfo_spell` WHERE `race`=@NEW_RACE AND `class`=@NEW_CLASS ;
 INSERT INTO `playercreateinfo_spell` (`race`, `class`, `Spell`, `Note`)
-SELECT @NEW_RACE, @NEW_CLASS, `Spell`, `Note` FROM `playercreateinfo_spell` WHERE race = @COPY_RACE AND class = @NEW_CLASS;
+SELECT @NEW_RACE, @NEW_CLASS, `Spell`, `Note` FROM `playercreateinfo_spell` WHERE `race`=@COPY_RACE AND `class`=@NEW_CLASS;
+```
 
 Continuation:
 
-6. SQL Modifications:
-
-
-
+**SQL Modifications:**
 
 Some querys you'd have to run (copy pasted from modcraft):
-Adding spells to the Goblin Warrior (copied from the Human Warrior) :*
+Adding spells to the Goblin Warrior (copied from the Human Warrior):
 
+```sql
 SET @NEW_RACE = 9; -- ID of adding race.
 SET @NEW_CLASS = 1; -- ID of class of the new race.
 SET @COPY_RACE = 1; -- ID of the race where we copy datas.
-DELETE FROM `playercreateinfo_spell` WHERE race = @NEW_RACE AND class = @NEW_CLASS ;
+DELETE FROM `playercreateinfo_spell` WHERE `race`=@NEW_RACE AND `class`=@NEW_CLASS ;
 INSERT INTO `playercreateinfo_spell` (`race`, `class`, `Spell`, `Note`)
-SELECT @NEW_RACE, @NEW_CLASS, `Spell`, `Note` FROM `playercreateinfo_spell` WHERE race = @COPY_RACE AND class = @NEW_CLASS;
+SELECT @NEW_RACE, @NEW_CLASS, `Spell`, `Note` FROM `playercreateinfo_spell` WHERE `race`=@COPY_RACE AND `class`=@NEW_CLASS;
+```
 
+Adding spells to the Fel Orcs Warrior (copied from the Orc Warrior):
 
-Adding spells to the Fel Orcs Warrior (copied from the Orc Warrior) :
-
+```sql
 SET @NEW_RACE = 12; -- ID of adding race.
 SET @NEW_CLASS = 1; -- ID of class of the new race.
 SET @COPY_RACE = 2; -- ID of the race where we copy datas.
-DELETE FROM `playercreateinfo_spell` WHERE race = @NEW_RACE AND class = @NEW_CLASS ;
+DELETE FROM `playercreateinfo_spell` WHERE `race`=@NEW_RACE AND `class`=@NEW_CLASS ;
 INSERT INTO `playercreateinfo_spell` (`race`, `class`, `Spell`, `Note`)
-SELECT @NEW_RACE, @NEW_CLASS, `Spell`, `Note` FROM `playercreateinfo_spell` WHERE race = @COPY_RACE AND class = @NEW_CLASS;
+SELECT @NEW_RACE, @NEW_CLASS, `Spell`, `Note` FROM `playercreateinfo_spell` WHERE `race`=@COPY_RACE AND `class`=@NEW_CLASS;
+```
 
+Buttons Action Goblin Warrior (copied on Human Warrior):
 
-Buttons Action Goblin Warrior (copied on Human Warrior) :
-
+```sql
 SET @NEW_RACE = 9; -- ID of adding race.
 SET @NEW_CLASS = 1; -- ID of class of the new race.
 SET @COPY_RACE = 1; -- ID of the race where we copy datas.
-DELETE FROM `playercreateinfo_action` WHERE race = @NEW_RACE AND class = @NEW_CLASS ;
+DELETE FROM `playercreateinfo_action` WHERE `race`=@NEW_RACE AND `class`=@NEW_CLASS ;
 INSERT INTO `playercreateinfo_action` (`race`, `class`, `button`, `action`, `type`)
-SELECT @NEW_RACE, @NEW_CLASS, `button`, `action`, `type` FROM `playercreateinfo_action` WHERE race = @COPY_RACE AND class = @NEW_CLASS;
+SELECT @NEW_RACE, @NEW_CLASS, `button`, `action`, `type` FROM `playercreateinfo_action` WHERE `race`=@COPY_RACE AND `class`=@NEW_CLASS;
+```
 
-Buttons Action Fel Orcs Warrior (copied on Orc Warrior) :
+Buttons Action Fel Orcs Warrior (copied on Orc Warrior):
 
+```sql
 SET @NEW_RACE = 12; -- ID of adding race.
 SET @NEW_CLASS = 1; -- ID of class of the new race.
 SET @COPY_RACE = 2; -- ID of the race where we copy datas.
-DELETE FROM `playercreateinfo_action` WHERE race = @NEW_RACE AND class = @NEW_CLASS ;
+DELETE FROM `playercreateinfo_action` WHERE `race`=@NEW_RACE AND `class`=@NEW_CLASS ;
 INSERT INTO `playercreateinfo_action` (`race`, `class`, `button`, `action`, `type`)
-SELECT @NEW_RACE, @NEW_CLASS, `button`, `action`, `type` FROM `playercreateinfo_action` WHERE race = @COPY_RACE AND class = @NEW_CLASS;
+SELECT @NEW_RACE, @NEW_CLASS, `button`, `action`, `type` FROM `playercreateinfo_action` WHERE `race`=@COPY_RACE AND `class`=@NEW_CLASS;
+```
 
-Starting location of Goblin Warrior (= Humans) :
+Starting location of Goblin Warrior (= Humans):
 
-INSERT INTO `playercreateinfo` (`race`, `class`, `map`, `zone`, `position_x`, `position_y`, `position_z`) VALUES ('9','1','0','12','-8949.95','-132.493','83.5312');
-
+```sql
+INSERT INTO `playercreateinfo` (`race`, `class`, `map`, `zone`, `position_x`, `position_y`, `position_z`) VALUES
+('9','1','0','12','-8949.95','-132.493','83.5312');
+```
 Starting location of Fel Orc Warrior (= Orcs)
 
-INSERT INTO `playercreateinfo` (`race`, `class`, `map`, `zone`, `position_x`, `position_y`, `position_z`) VALUES ('12','1','1','14','-618.518','-4251.67','38.718');
+```sql
+INSERT INTO `playercreateinfo` (`race`, `class`, `map`, `zone`, `position_x`, `position_y`, `position_z`) VALUES
+('12','1','1','14','-618.518','-4251.67','38.718');
+```
 
 Levels for the Goblin Warrior (copied on Human Warrior)
 
+```sql
 SET @NEW_RACE = 9; -- ID of adding race.
 SET @NEW_CLASS = 1; -- ID of class of the new race.
 SET @COPY_RACE = 1; -- ID of the race where we copy datas.
-DELETE FROM `player_levelstats` WHERE race = @NEW_RACE AND class = @NEW_CLASS ;
+DELETE FROM `player_levelstats` WHERE `race`=@NEW_RACE AND `class`=@NEW_CLASS;
 INSERT INTO `player_levelstats` (`race`, `class`, `level`, `str`, `agi`, `sta`, `inte`, `spi`)
-SELECT @NEW_RACE, @NEW_CLASS, `level`, `str`, `agi`, `sta`, `inte`, `spi` FROM `player_levelstats` WHERE race = @COPY_RACE AND class = @NEW_CLASS;
+SELECT @NEW_RACE, @NEW_CLASS, `level`, `str`, `agi`, `sta`, `inte`, `spi` FROM `player_levelstats` WHERE `race`=@COPY_RACE AND `class`=@NEW_CLASS;
+```
 
 Levels for the Fel Orc Warrior (copied on Orc Warrior)
 
+```sql
 SET @NEW_RACE = 12; -- ID of adding race.
 SET @NEW_CLASS = 1; -- ID of class of the new race.
 SET @COPY_RACE = 2; -- ID of the race where we copy datas.
-DELETE FROM `player_levelstats` WHERE race = @NEW_RACE AND class = @NEW_CLASS ;
+DELETE FROM `player_levelstats` WHERE `race`=@NEW_RACE AND `class`=@NEW_CLASS ;
 INSERT INTO `player_levelstats` (`race`, `class`, `level`, `str`, `agi`, `sta`, `inte`, `spi`)
-SELECT @NEW_RACE, @NEW_CLASS, `level`, `str`, `agi`, `sta`, `inte`, `spi` FROM `player_levelstats` WHERE race = @COPY_RACE AND class = @NEW_CLASS;
+SELECT @NEW_RACE, @NEW_CLASS, `level`, `str`, `agi`, `sta`, `inte`, `spi` FROM `player_levelstats` WHERE `race`=@COPY_RACE AND `class`=@NEW_CLASS;
+```
 
-7. Misc
+**Misc**
 
-Now you're nearly done, your character can be setup and it'll be actually playable :-) Now I'm just gonna copy some stuff from the modcraft guide that might be useful here at this last post:
+Now you're nearly done, your character can be setup and it'll be actually playable.
+Now I'm just gonna copy some stuff from the modcraft guide that might be useful here at this last post:
 
 Display helmets
-Open ChrRaces.dbc :
+Open **ChrRaces.dbc**:
+
 At the 7th column, you have the abbreviation of the race, eg Go for GOBLIN. This abbreviation is actually only used for display helmet. You can modify an abbreviation of existing race for the helmets appear, for example by replacing Hu.
 
 Problem: The helmets are misplaced, such as too forward, too high, etc. ... To fix this, simply move the Attachment Point No. 11 (which corresponds to the placement of the helmet) on two M2 model race (GoblinMale.m2 and GoblinFemale.m2 for example). You can use Mod-It for this.
 
 There are other more "clean" way to fix helmets but longer.
 
-Languages and skills
+**Languages and skills**
+
 Basically, you can not learn language or skills. Indeed, the game uses a verification which is configured for each Skills. We will have to modify all the skills you'll want that the race will be use.
 
 We'll take the example of the Common Language (Skill n°98).
-Open SkillLineAbility.dbc :
-Find :
-Quote:590,98,668,1101,0,,,1,0,0x2,0,0,,,
+Open **SkillLineAbility.dbc**:
 
-We must consider the 4th column, the 1101 value. Transform this number into binary (eg with http://www.michelcarrare.com/demos/converter.php) You will find in our case:
+Find:
+```csv
+Quote:590,98,668,1101,0,,,1,0,0x2,0,0,,,
+```
+
+We must consider the 4th column, the 1101 value. Transform this number into binary (eg with http://www.michelcarrare.com/demos/converter.php) You will find in our
+
+case:
 10001001101
-Every "1" allows the Skill for the race with ID equal to the position :
+
+Every "1" allows the Skill for the race with ID equal to the position:
+
 IDRace : 11 | 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1
 
 1 0 0 0 1 0 0 1 1 0 1
@@ -596,23 +630,32 @@ IDRace : 11 | 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1
 
 1 0 1 0 1 0 0 1 1 0 1
 
-Then just reprocess this new value in decimal :
-(bin)10101001101 = (dec)1357
-So, we have this :
-590,98,668,1357,0,,,1,0,0x2,0,0,,,
+Then just reprocess this new value in decimal:
 
+(bin)10101001101 = (dec)1357
+
+So, we have this:
+
+```csv
+590,98,668,1357,0,,,1,0,0x2,0,0,,,
+```
 
 Hey! And if my ID is 14 to the race? How can I do?
 
 Well it is the same way, by adding 0:
+
 IDRace : 14 | 13 | 12 | 11 | 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1
 
 1 0 0 1 0 0 0 1 0 0 1 1 0 1
 
 
-Open SkillRaceClassInfo.dbc :
-Find :
+Open **SkillRaceClassInfo.dbc**:
+
+Find:
+
+```csv
 Quote:40,98,1101,1535,0x80,0x0,0,0x0,
+```
 
 You see the 1101 in the 3rd column? Do as above.
 
@@ -623,16 +666,21 @@ Information
 This technique can be used on your existing races, particularly for languages.
 
 Allowing Reputations
-Open Faction.dbc :
-For example, suppose we want allow reputation Stormwind for Goblin, find :
 
+Open **Faction.dbc**:
+For example, suppose we want allow reputation Stormwind for Goblin, find:
+
+```csv
 72,19,1100,690,0x1,0x0,0,0,0x0,0x0,3100,-42000,4000,0,0x111,6,0x11,0x0,469,1.0,0.25,7,5,,,"Hurlevent",,,,,,,,,,,,,,0xFF01FE,,,"Cette capitale de l’Alliance est l’un des derniers bastions de la puissance des humains. Elle est gouvernée par le roi Varian Wrynn, revenu après une disparition mystérieuse.",,,,,,,,,,,,,,0xFF01FE,
+```
 
 
-Well take this part of the line :
+Well take this part of the line:
+
 1100, 690, 0x1, 0x0,[...] 3100, -42000, 4000,0,
 
 Races 1 | Races 2 | Races 3 | Races 4 | Rep for races 1 | Rep for races 2 | Rep for races 3 ...
+
 You understand? 1100 corresponds to all races of the alliance except humans who begin the game with 3,100 reputation. 690 races is the hord, they begin with -42,000 and finally 1 for humans starting with 4000.
 So if we want Goblins (ID 9) can start with 3100 (and that reputation is allowed to be used for this race and saved by the server), you must edit 1100 by 1356 (detailed explanations in the activation of languages and skills).
 We must do this for all Reputations. No worries, using "Replace All" with your favorite text editor, it will save time.
