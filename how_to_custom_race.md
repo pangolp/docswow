@@ -1,40 +1,40 @@
-**Fuente:** http://www.ac-web.org/forums/archive/index.php/t-181048.html
+# [How to: Custom Races!](http://www.ac-web.org/forums/showthread.php?181048-How-to-Custom-Races!)
 
-1. Introduction
+**1. Introduction**
 
 Okay so now I've been trying to make custom races for a week or so because the only guide made was for an earlier patch and the people who knew what to do wouldn't respond to my questions or just simply ignored me. So now I'm sharing what I've found out on how to create your own custom race.
 
 So what you have to understand for a start is that you can't have all custom races such as pigs or something else, it has to be a race that's actually defined, now you'll probably ask me: "which is defined?", well let's take a look:
 
-(From SharedDefines.h)
+**SharedDefines.h**
 
-
+```c++
 enum Races
 {
-RACE_NONE = 0,
-RACE_HUMAN = 1,
-RACE_ORC = 2,
-RACE_DWARF = 3,
-RACE_NIGHTELF = 4,
-RACE_UNDEAD_PLAYER = 5,
-RACE_TAUREN = 6,
-RACE_GNOME = 7,
-RACE_TROLL = 8,
-//RACE_GOBLIN = 9,
-RACE_BLOODELF = 10,
-RACE_DRAENEI = 11,
-//RACE_FEL_ORC = 12
-//RACE_NAGA = 13,
-//RACE_BROKEN = 14,
-//RACE_SKELETON = 15,
-//RACE_VRYKUL = 16,
-//RACE_TUSKARR = 17,
-//RACE_FOREST_TROLL = 18,
-//RACE_TAUNKA = 19,
-//RACE_NORTHREND_SKELETON = 20,
-//RACE_ICE_TROLL = 21
+	RACE_NONE = 0,
+	RACE_HUMAN = 1,
+	RACE_ORC = 2,
+	RACE_DWARF = 3,
+	RACE_NIGHTELF = 4,
+	RACE_UNDEAD_PLAYER = 5,
+	RACE_TAUREN = 6,
+	RACE_GNOME = 7,
+	RACE_TROLL = 8,
+	//RACE_GOBLIN = 9,
+	RACE_BLOODELF = 10,
+	RACE_DRAENEI = 11,
+	//RACE_FEL_ORC = 12
+	//RACE_NAGA = 13,
+	//RACE_BROKEN = 14,
+	//RACE_SKELETON = 15,
+	//RACE_VRYKUL = 16,
+	//RACE_TUSKARR = 17,
+	//RACE_FOREST_TROLL = 18,
+	//RACE_TAUNKA = 19,
+	//RACE_NORTHREND_SKELETON = 20,
+	//RACE_ICE_TROLL = 21
 };
-
+```
 
 That is the current races that is playable. What I'm going to teach you today is how to add two of them: The Goblin and the Fel Orc.
 
@@ -44,37 +44,31 @@ This is not and easy guide, don't expect me to hand out information if you don't
 I will provide information that I found worked for me
 I don't care if anything I do is "hacky".
 
-
-2. Getting The Files
-
+**Getting The Files**
 Okay, we'll start editing the DBC files, the ones you need are:
 
-ChrRaces.dbc
-
-CharBaseInfo.dbc
-
-CharStartOutfit.dbc
-
-SkillLineAbility.dbc
-
-SkillRaceClassInfo.dbc
-
-Faction.dbc
+ - ChrRaces.dbc
+ - CharBaseInfo.dbc
+ - CharStartOutfit.dbc
+ - SkillLineAbility.dbc
+ - SkillRaceClassInfo.dbc
+ - Faction.dbc
 
 You can extract them from the core/dbc, it's the same as in the client. You'll also have to get some Lua and XML files from the blizzard patches so that you can edit the character creation screen. Those files are:
 
-
+```
 patch-enXX-3.mpq\Interface\GlueXML\GlueStrings.lua
 patch-enXX-3.mpq\Interface\GlueXML\GlueParent.lua
 
 patch-enXX-2.mpq\Interface\GlueXML\CharacterCreate.lua
 patch-enXX-2.mpq\Interface\GlueXML\CharacterCreate.xml
-[/code
+```
 
 Okay, great so some of you will maybe ask how to extract those, what you do is get your favorite MPQ Editor, you can use whichever you like (google it if you don't have one) and open the patches with it, go to the path the I wrote above in the MPQ file and drag it somewhere in a folder for this project of yours.
 
 Now that we got all our files we need to arrange them, make a new folder called "RacePatch" on your desktop which should look like this:
-[code]
+
+```
 RacePatch\Interface\GlueXML\GlueStrings.lua
 RacePatch\Interface\GlueXML\GlueParent.lua
 RacePatch\Interface\GlueXML\CharacterCreate.lua
@@ -86,43 +80,54 @@ RacePatch\DBFilesClient\CharStartOutfit.dbc
 RacePatch\DBFilesClient\SkillLineAbility.dbc
 RacePatch\DBFilesClient\SkillRaceClassInfo.dbc
 RacePatch\DBFilesClient\Faction.dbc
-
+```
 
 Now that we got our desired files smoothly lined up we can go on to the editing of them.
 
-3. Editing The DBC Files
+**Editing The DBC Files**
 
 For this, unless stated otherwise, use your favorite DBC editor.
 
-Firstly open up your ChrRaces.dbc, you'll see all the races I listed above shows up, now what you want to do is fine these 2 lines:
+Firstly open up your **ChrRaces.dbc**, you'll see all the races I listed above shows up, now what you want to do is fine these 2 lines:
 
+```csv
 9,1,1,0x0,6894,6895,"Go",7,7,15007,0x448,"Goblin",0,0x2,,,"Goblin",,,,,,,,,,,,,,0xFF01FE,,,"Goblin",,,,,,,,,,,,,,0xFF01CC,,,"Gobelin",,,,,,,,,,,,,,0xFF01CC,"NORMAL","NONE","NORMAL",0,
-
 12,5,1,0x0,16981,16980,"Fo",7,7,15007,0x448,"FelOrc",0,0x2,,,"Fel Orc",,,,,,,,,,,,,,0xFF01FE,,,"Fel Orc",,,,,,,,,,,,,,0xFF01CC,,,"Fel Orc",,,,,,,,,,,,,,0xFF01CC,"NORMAL","NORMAL","NORMAL",0,
+```
 
 Or something along the lines of that..
 
 Now you want to edit is as follows:
-2nd column, it must change by 12 for the race is playable.
-4th column defines the faction of the race, see Faction.dbc
-8th column, 1 for horde and 7 for alliance. -Taken from Modcraft, see credits
+ - 2nd column, it must change by 12 for the race is playable.
+ - 4th column defines the faction of the race, see Faction.dbc
+ - 8th column, 1 for horde and 7 for alliance. -Taken from Modcraft, see credits
 
 
-Now you want to save and close that. And you want to open up CharBaseInfo.dbc, this file determines the class/race combos for your races. So what you want to do is for now only add 2 lines:
+Now you want to save and close that. And you want to open up **CharBaseInfo.dbc**, this file determines the class/race combos for your races. So what you want to do is for now only add 2 lines:
+
+```csv
 9, 1
 12, 1
-This makes it so that Goblin (9) can be warrior and so can Fel Orc (12). --NOTE: If you're having trouble opening this DBC file Taliis does the job ;)
+```
 
-Now that we're done with that we'll move on to the Lua/XML files, and this is where the fun begins :-P
+This makes it so that Goblin (9) can be warrior and so can Fel Orc (12).
+--NOTE: If you're having trouble opening this DBC file Taliis does the job ;)
 
-4. Editing the Interface Files
+Now that we're done with that we'll move on to the Lua/XML files, and this is where the fun begins.
+
+**Editing the Interface Files**
 
 Okay so the first thing you want to do is get open the GlueStrings file, in there you'll find many values that you can edit and such, but let's keep it simple and add what we need:
 
 Find
+
+```lua
 ABILITY_INFO_BLOODELF1 = "- Enchanting skill increased.";
+```
+
 And on top of that add this:
 
+```lua
 ABILITY_INFO_GOBLIN1 = "- Goblin Racial 1";
 ABILITY_INFO_GOBLIN2 = "- Goblin Racial 2";
 ABILITY_INFO_GOBLIN3 = "- Goblin Racial 3";
@@ -131,50 +136,65 @@ ABILITY_INFO_FELORC1 = "- Fel Orc Racial 1";
 ABILITY_INFO_FELORC2 = "- Fel Orc Racial 2";
 ABILITY_INFO_FELORC3 = "- Fel Orc Racial 3";
 ABILITY_INFO_FELORC4 = "- Fel Orc Racial 4";
+```
 
 Next find:
 
+```lua
 RACE_CHANGE_IN_PROGRESS = "Updating Race...";
+```
 
 after that line insert these:
 
+```lua
 RACE_INFO_GOBLIN = "Information about Goblin males.";
 RACE_INFO_GOBLIN_FEMALE = "Information about Goblin females.";
 RACE_INFO_FELORC = "Information about Fel Orc males.";
 RACE_INFO_FELORC_FEMALE = "Information about Fel Orc females.";
+```
 
-And you're done with GlueStrings.lua, close it down (remember to save ofc) and we'll move on to GlueParent.lua
+And you're done with **GlueStrings.lua**, close it down (remember to save ofc) and we'll move on to **GlueParent.lua**
 
 So as you now see this is what the ModCraft tutorial didn't cover, and it's here that many people fail, so therefore I'll complete this part :-)
 
-Firstly you want to open up GlueParent.lua (of course) and then search for
+Firstly you want to open up **GlueParent.lua** (of course) and then search for
 
+```lua
 GlueAmbienceTracks["CHARACTERSELECT"] = "GlueScreenIntro";
+```
+
 After this line add these 2:
 
+```lua
 GlueAmbienceTracks["GOBLIN"] = "GlueScreenIntro";
 GlueAmbienceTracks["FELORC"] = "GlueScreenIntro";
+```
 
 Now you want to go to around:
 
+```lua
 CHARACTERSELECT = {
-{1, 0, 0.00000, 0.00000, -1.00000, 1.0, 0.15000, 0.15000, 0.15000, 1.0, 0.00000, 0.00000, 0.00000},
-{1, 0, -0.74919, 0.35208, -0.56103, 1.0, 0.00000, 0.00000, 0.00000, 1.0, 0.44706, 0.54510, 0.73725},
-{1, 0, 0.53162, -0.84340, 0.07780, 1.0, 0.00000, 0.00000, 0.00000, 2.0, 0.55, 0.338625, 0.148825},
+	{1, 0, 0.00000, 0.00000, -1.00000, 1.0, 0.15000, 0.15000, 0.15000, 1.0, 0.00000, 0.00000, 0.00000},
+	{1, 0, -0.74919, 0.35208, -0.56103, 1.0, 0.00000, 0.00000, 0.00000, 1.0, 0.44706, 0.54510, 0.73725},
+	{1, 0, 0.53162, -0.84340, 0.07780, 1.0, 0.00000, 0.00000, 0.00000, 2.0, 0.55, 0.338625, 0.148825},
 },
+```
 
 and after that you should add:
 
+```lua
 GOBLIN = {
-{1, 0, 0.00000, 0.00000, -1.00000, 1.0, 0.15000, 0.15000, 0.15000, 1.0, 0.00000, 0.00000, 0.00000},
-{1, 0, -0.74919, 0.35208, -0.56103, 1.0, 0.00000, 0.00000, 0.00000, 1.0, 0.44706, 0.54510, 0.73725},
-{1, 0, 0.53162, -0.84340, 0.07780, 1.0, 0.00000, 0.00000, 0.00000, 2.0, 0.55, 0.338625, 0.148825},
+	{1, 0, 0.00000, 0.00000, -1.00000, 1.0, 0.15000, 0.15000, 0.15000, 1.0, 0.00000, 0.00000, 0.00000},
+	{1, 0, -0.74919, 0.35208, -0.56103, 1.0, 0.00000, 0.00000, 0.00000, 1.0, 0.44706, 0.54510, 0.73725},
+	{1, 0, 0.53162, -0.84340, 0.07780, 1.0, 0.00000, 0.00000, 0.00000, 2.0, 0.55, 0.338625, 0.148825},
 },
+
 FELORC = {
-{1, 0, 0.00000, 0.00000, -1.00000, 1.0, 0.15000, 0.15000, 0.15000, 1.0, 0.00000, 0.00000, 0.00000},
-{1, 0, -0.74919, 0.35208, -0.56103, 1.0, 0.00000, 0.00000, 0.00000, 1.0, 0.44706, 0.54510, 0.73725},
-{1, 0, 0.53162, -0.84340, 0.07780, 1.0, 0.00000, 0.00000, 0.00000, 2.0, 0.55, 0.338625, 0.148825},
+	{1, 0, 0.00000, 0.00000, -1.00000, 1.0, 0.15000, 0.15000, 0.15000, 1.0, 0.00000, 0.00000, 0.00000},
+	{1, 0, -0.74919, 0.35208, -0.56103, 1.0, 0.00000, 0.00000, 0.00000, 1.0, 0.44706, 0.54510, 0.73725},
+	{1, 0, 0.53162, -0.84340, 0.07780, 1.0, 0.00000, 0.00000, 0.00000, 2.0, 0.55, 0.338625, 0.148825},
 },
+```
 
 This will add the light so the models are lightened up and nice :-)
 
