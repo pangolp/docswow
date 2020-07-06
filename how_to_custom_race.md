@@ -111,7 +111,7 @@ Now you want to save and close that. And you want to open up **CharBaseInfo.dbc*
 ```
 
 This makes it so that Goblin (9) can be warrior and so can Fel Orc (12).
---NOTE: If you're having trouble opening this DBC file Taliis does the job ;)
+--NOTE: If you're having trouble opening this DBC file Taliis does the job
 
 Now that we're done with that we'll move on to the Lua/XML files, and this is where the fun begins.
 
@@ -155,7 +155,7 @@ RACE_INFO_FELORC_FEMALE = "Information about Fel Orc females.";
 
 And you're done with **GlueStrings.lua**, close it down (remember to save ofc) and we'll move on to **GlueParent.lua**
 
-So as you now see this is what the ModCraft tutorial didn't cover, and it's here that many people fail, so therefore I'll complete this part :-)
+So as you now see this is what the ModCraft tutorial didn't cover, and it's here that many people fail, so therefore I'll complete this part.
 
 Firstly you want to open up **GlueParent.lua** (of course) and then search for
 
@@ -196,168 +196,189 @@ FELORC = {
 },
 ```
 
-This will add the light so the models are lightened up and nice :-)
+This will add the light so the models are lightened up and nice
 
 After this you want to go to:
 
+```lua
 function SetBackgroundModel(model, name)
+```
+
 and replace that whole function with:
 
+```lua
 function SetBackgroundModel(model, name)
-local nameupper = strupper(name);
+	local nameupper = strupper(name);
 
-if (name == "Goblin" or name == "GOBLIN") then
-name = "Orc";
-end
+	if (name == "Goblin" or name == "GOBLIN") then
+		name = "Orc";
+	end
 
-if (name == "FelOrc" or name == "FELORC") then
-name = "Orc";
-end
+	if (name == "FelOrc" or name == "FELORC") then
+		name = "Orc";
+	end
 
-local path = "Interface\\Glues\\Models\\UI_"..name.."\\UI_"..name..".m2";
-if ( model == CharacterCreate ) then
-SetCharCustomizeBackground(path);
-else
-SetCharSelectBackground(path);
+	local path = "Interface\\Glues\\Models\\UI_"..name.."\\UI_"..name..".m2";
+
+	if ( model == CharacterCreate ) then
+		SetCharCustomizeBackground(path);
+	else
+		SetCharSelectBackground(path);
+	end
+
+	PlayGlueAmbience(GlueAmbienceTracks[nameupper], 4.0);
+	SetLighting(model, nameupper)
 end
-PlayGlueAmbience(GlueAmbienceTracks[nameupper], 4.0);
-SetLighting(model, nameupper)
-end
+```
 
 This will make the goblin and the Fel Orc appear as if they had the orc character creation background.
 
 You're now done with the GlueParent.lua and can move on to the CharacterCreate.lua, firstly open it and go to
-MAX_RACES = 10; and edit that to
+
+```lua
+MAX_RACES = 10;
+```
+and edit that to
+```lua
 MAX_RACES = 12;
+```
 
 Find
 
+```lua
 ["DRAENEI_MALE"] = {0.5, 0.625, 0, 0.25},
 ["DRAENEI_FEMALE"] = {0.5, 0.625, 0.5, 0.75},
+```
 
 After that add:
 
+```lua
 ["GOBLIN_MALE"] = {0.625, 0.625, 0, 0.25},
 ["GOBLIN_FEMALE"] = {0.625, 0.625, 0, 0.25},
 
 ["FELORC_MALE"] = {0.5, 0.625, 0, 0.25},
 ["FELORC_FEMALE"] = {0.5, 0.625, 0, 0.25},
+```
+
 -This will add the Draenei icons to the character creation screen since I haven't quite figured out the icon placement coord system.
 
-Next you'll close down Charactercreate.lua and open up CharacterCreate.xml, you'll want to find:
+Next you'll close down Charactercreate.lua and open up **CharacterCreate.xml**, you'll want to find:
 
+```xml
 <CheckButton name="CharacterCreateRaceButton1" inherits="CharacterCreateRaceButtonTemplate" id="1">
-<Anchors>
-<Anchor point="TOP" relativePoint="TOP" x="-50" y="-61"/>
-</Anchors>
+	<Anchors>
+		<Anchor point="TOP" relativePoint="TOP" x="-50" y="-61"/>
+	</Anchors>
 </CheckButton>
 <CheckButton name="CharacterCreateRaceButton2" inherits="CharacterCreateRaceButtonTemplate" id="2">
-<Anchors>
-<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton1" relativePoint="BOTTOMLEFT" x="0" y="-21"/>
-</Anchors>
+	<Anchors>
+		<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton1" relativePoint="BOTTOMLEFT" x="0" y="-21"/>
+	</Anchors>
 </CheckButton>
 <CheckButton name="CharacterCreateRaceButton3" inherits="CharacterCreateRaceButtonTemplate" id="3">
-<Anchors>
-<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton2" relativePoint="BOTTOMLEFT" x="0" y="-21"/>
-</Anchors>
+	<Anchors>
+		<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton2" relativePoint="BOTTOMLEFT" x="0" y="-21"/>
+	</Anchors>
 </CheckButton>
 <CheckButton name="CharacterCreateRaceButton4" inherits="CharacterCreateRaceButtonTemplate" id="4">
-<Anchors>
-<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton3" relativePoint="BOTTOMLEFT" x="0" y="-21"/>
-</Anchors>
+	<Anchors>
+		<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton3" relativePoint="BOTTOMLEFT" x="0" y="-21"/>
+	</Anchors>
 </CheckButton>
 <CheckButton name="CharacterCreateRaceButton5" inherits="CharacterCreateRaceButtonTemplate" id="5">
-<Anchors>
-<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton4" relativePoint="BOTTOMLEFT" x="0" y="-21"/>
-</Anchors>
+	<Anchors>
+		<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton4" relativePoint="BOTTOMLEFT" x="0" y="-21"/>
+	</Anchors>
 </CheckButton>
 <CheckButton name="CharacterCreateRaceButton6" inherits="CharacterCreateRaceButtonTemplate" id="6">
-<Anchors>
-<Anchor point="TOP" relativePoint="TOP" x="50" y="-61"/>
-</Anchors>
+	<Anchors>
+		<Anchor point="TOP" relativePoint="TOP" x="50" y="-61"/>
+	</Anchors>
 </CheckButton>
 <CheckButton name="CharacterCreateRaceButton7" inherits="CharacterCreateRaceButtonTemplate" id="7">
-<Anchors>
-<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton6" relativePoint="BOTTOMLEFT" x="0" y="-21"/>
-</Anchors>
+	<Anchors>
+		<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton6" relativePoint="BOTTOMLEFT" x="0" y="-21"/>
+	</Anchors>
 </CheckButton>
 <CheckButton name="CharacterCreateRaceButton8" inherits="CharacterCreateRaceButtonTemplate" id="8">
-<Anchors>
-<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton7" relativePoint="BOTTOMLEFT" x="0" y="-21"/>
-</Anchors>
+	<Anchors>
+		<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton7" relativePoint="BOTTOMLEFT" x="0" y="-21"/>
+	</Anchors>
 </CheckButton>
 <CheckButton name="CharacterCreateRaceButton9" inherits="CharacterCreateRaceButtonTemplate" id="9">
-<Anchors>
-<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton8" relativePoint="BOTTOMLEFT" x="0" y="-21"/>
-</Anchors>
+	<Anchors>
+		<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton8" relativePoint="BOTTOMLEFT" x="0" y="-21"/>
+	</Anchors>
 </CheckButton>
 <CheckButton name="CharacterCreateRaceButton10" inherits="CharacterCreateRaceButtonTemplate" id="10">
-<Anchors>
-<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton9" relativePoint="BOTTOMLEFT" x="0" y="-21"/>
-</Anchors>
+	<Anchors>
+		<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton9" relativePoint="BOTTOMLEFT" x="0" y="-21"/>
+	</Anchors>
 </CheckButton>
-
+```
 and replace it with
+```xml
 <CheckButton name="CharacterCreateRaceButton1" inherits="CharacterCreateRaceButtonTemplate" id="1">
-<Anchors>
-<Anchor point="TOP" relativePoint="TOP" x="-50" y="-50"/>
-</Anchors>
+	<Anchors>
+		<Anchor point="TOP" relativePoint="TOP" x="-50" y="-50"/>
+	</Anchors>
 </CheckButton>
 <CheckButton name="CharacterCreateRaceButton2" inherits="CharacterCreateRaceButtonTemplate" id="2">
-<Anchors>
-<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton1" relativePoint="BOTTOMLEFT" x="0" y="-10"/>
-</Anchors>
+	<Anchors>
+		<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton1" relativePoint="BOTTOMLEFT" x="0" y="-10"/>
+	</Anchors>
 </CheckButton>
 <CheckButton name="CharacterCreateRaceButton3" inherits="CharacterCreateRaceButtonTemplate" id="3">
-<Anchors>
-<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton2" relativePoint="BOTTOMLEFT" x="0" y="-10"/>
-</Anchors>
+	<Anchors>
+		<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton2" relativePoint="BOTTOMLEFT" x="0" y="-10"/>
+	</Anchors>
 </CheckButton>
 <CheckButton name="CharacterCreateRaceButton4" inherits="CharacterCreateRaceButtonTemplate" id="4">
-<Anchors>
-<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton3" relativePoint="BOTTOMLEFT" x="0" y="-10"/>
-</Anchors>
+	<Anchors>
+		<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton3" relativePoint="BOTTOMLEFT" x="0" y="-10"/>
+	</Anchors>
 </CheckButton>
 <CheckButton name="CharacterCreateRaceButton5" inherits="CharacterCreateRaceButtonTemplate" id="5">
-<Anchors>
-<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton4" relativePoint="BOTTOMLEFT" x="0" y="-10"/>
-</Anchors>
+	<Anchors>
+		<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton4" relativePoint="BOTTOMLEFT" x="0" y="-10"/>
+	</Anchors>
 </CheckButton>
 <CheckButton name="CharacterCreateRaceButton7" inherits="CharacterCreateRaceButtonTemplate" id="7">
-<Anchors>
-<Anchor point="TOP" relativePoint="TOP" x="50" y="-50"/>
-</Anchors>
+	<Anchors>
+		<Anchor point="TOP" relativePoint="TOP" x="50" y="-50"/>
+	</Anchors>
 </CheckButton>
 <CheckButton name="CharacterCreateRaceButton8" inherits="CharacterCreateRaceButtonTemplate" id="8">
-<Anchors>
-<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton7" relativePoint="BOTTOMLEFT" x="0" y="-10"/>
-</Anchors>
+	<Anchors>
+		<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton7" relativePoint="BOTTOMLEFT" x="0" y="-10"/>
+	</Anchors>
 </CheckButton>
 <CheckButton name="CharacterCreateRaceButton9" inherits="CharacterCreateRaceButtonTemplate" id="9">
-<Anchors>
-<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton8" relativePoint="BOTTOMLEFT" x="0" y="-10"/>
-</Anchors>
+	<Anchors>
+		<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton8" relativePoint="BOTTOMLEFT" x="0" y="-10"/>
+	</Anchors>
 </CheckButton>
 <CheckButton name="CharacterCreateRaceButton10" inherits="CharacterCreateRaceButtonTemplate" id="10">
-<Anchors>
-<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton9" relativePoint="BOTTOMLEFT" x="0" y="-10"/>
-</Anchors>
+	<Anchors>
+		<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton9" relativePoint="BOTTOMLEFT" x="0" y="-10"/>
+	</Anchors>
 </CheckButton>
 <CheckButton name="CharacterCreateRaceButton12" inherits="CharacterCreateRaceButtonTemplate" id="12">
-<Anchors>
-<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton10" relativePoint="BOTTOMLEFT" x="0" y="-10"/>
-</Anchors>
+	<Anchors>
+		<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton10" relativePoint="BOTTOMLEFT" x="0" y="-10"/>
+	</Anchors>
 </CheckButton>
 <CheckButton name="CharacterCreateRaceButton11" inherits="CharacterCreateRaceButtonTemplate" id="11">
-<Anchors>
-<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton12" relativePoint="BOTTOMLEFT" x="0" y="-10"/>
-</Anchors>
+	<Anchors>
+		<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton12" relativePoint="BOTTOMLEFT" x="0" y="-10"/>
+	</Anchors>
 </CheckButton>
 <CheckButton name="CharacterCreateRaceButton6" inherits="CharacterCreateRaceButtonTemplate" id="6">
-<Anchors>
-<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton5" relativePoint="BOTTOMLEFT" x="0" y="-10"/>
-</Anchors>
+	<Anchors>
+		<Anchor point="TOPLEFT" relativeTo="CharacterCreateRaceButton5" relativePoint="BOTTOMLEFT" x="0" y="-10"/>
+	</Anchors>
 </CheckButton>
+```
 
 Now if you did it right all your files should be correctly edited, you now want to copy those file into a patch, I assume you already know how to make a custom patch so I'll skip over that.. What you want to do now is add your files to a patch (all the files in the directory RacePatch or whatever you called it)
 
@@ -621,5 +642,5 @@ For example: 1791 means all races of the alliance. So if the goblin is in the al
 Now you should be pretty much done, thank you for reading my guide hope you found it useful :-)
 
 Credits:
-Me
-http://modcraft.superparanoid.de/viewtopic.php?f=26&t=165
+ - Me (Mathix)
+ - http://modcraft.superparanoid.de/viewtopic.php?f=26&t=165
