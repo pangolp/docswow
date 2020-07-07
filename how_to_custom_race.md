@@ -1,10 +1,10 @@
 # [How to: Custom Races!](http://www.ac-web.org/forums/showthread.php?181048-How-to-Custom-Races!)
 
-**1. Introduction**
+**1. Introducción**
 
-Okay so now I've been trying to make custom races for a week or so because the only guide made was for an earlier patch and the people who knew what to do wouldn't respond to my questions or just simply ignored me. So now I'm sharing what I've found out on how to create your own custom race.
+Bien, así que ahora he estado tratando de hacer razas personalizadas durante una semana más o menos porque la única guía hecha fue para un parche anterior y las personas que sabían qué hacer no respondían a mis preguntas o simplemente me ignoraban. Así que ahora comparto lo que he descubierto sobre cómo crear tu propia raza personalizada.
 
-So what you have to understand for a start is that you can't have all custom races such as pigs or something else, it has to be a race that's actually defined, now you'll probably ask me: "which is defined?", well let's take a look:
+Así que lo que tienes que entender para empezar es que no puedes tener todas las razas personalizadas como los cerdos o algo así, tiene que ser una raza que esté realmente definida, ahora probablemente me preguntarás: "¿cuál está definida?", bueno echemos un vistazo:
 
 **SharedDefines.h**
 
@@ -36,16 +36,16 @@ enum Races
 };
 ```
 
-That is the current races that is playable. What I'm going to teach you today is how to add two of them: The Goblin and the Fel Orc.
+Esas son las razas actuales que se pueden jugar. Lo que voy a enseñarles hoy es cómo sumar dos de ellas: El Goblin y el Orco Fel.
 
-Before we start I'd like to say a couple of things:
+Antes de empezar me gustaría decir un par de cosas:
 
-This is not and easy guide, don't expect me to hand out information if you don't know what you're doing
-I will provide information that I found worked for me
-I don't care if anything I do is "hacky".
+Esta no es una guía fácil, no esperes que te dé información si no sabes lo que haces.
+Proporcionaré información que encontré que funcionaba para mí...
+No me importa si algo de lo que hago es "hacky".
 
-**Getting The Files**
-Okay, we'll start editing the DBC files, the ones you need are:
+**Obtener los archivos**
+Bien, empezaremos a editar los archivos DBC, los que necesitas son:
 
  - ChrRaces.dbc
  - CharBaseInfo.dbc
@@ -54,7 +54,7 @@ Okay, we'll start editing the DBC files, the ones you need are:
  - SkillRaceClassInfo.dbc
  - Faction.dbc
 
-You can extract them from the core/dbc, it's the same as in the client. You'll also have to get some Lua and XML files from the blizzard patches so that you can edit the character creation screen. Those files are:
+Puedes extraerlos del núcleo/dbc, es lo mismo que en el cliente. También tendrás que obtener algunos archivos Lua y XML de los parches de blizzard para poder editar la pantalla de creación de personajes. Esos archivos son:
 
 ```
 patch-enXX-3.mpq\Interface\GlueXML\GlueStrings.lua
@@ -64,68 +64,67 @@ patch-enXX-2.mpq\Interface\GlueXML\CharacterCreate.lua
 patch-enXX-2.mpq\Interface\GlueXML\CharacterCreate.xml
 ```
 
-Okay, great so some of you will maybe ask how to extract those, what you do is get your favorite MPQ Editor, you can use whichever you like (google it if you don't have one) and open the patches with it, go to the path the I wrote above in the MPQ file and drag it somewhere in a folder for this project of yours.
+Vale, genial, así que algunos de vosotros preguntaréis cómo extraerlos, lo que hacéis es conseguir vuestro editor de MPQ favorito, podéis usar el que queráis (buscadlo en Google si no lo tenéis) y abrir los parches con él, id a la ruta que escribí arriba en el archivo MPQ y arrastradlo a algún lugar de una carpeta para este proyecto vuestro.
 
-Now that we got all our files we need to arrange them, make a new folder called "RacePatch" on your desktop which should look like this:
 
 ```
-RacePatch\Interface\GlueXML\GlueStrings.lua
-RacePatch\Interface\GlueXML\GlueParent.lua
-RacePatch\Interface\GlueXML\CharacterCreate.lua
-RacePatch\Interface\GlueXML\CharacterCreate.xml
+Interface\GlueXML\GlueStrings.lua
+Interface\GlueXML\GlueParent.lua
+Interface\GlueXML\CharacterCreate.lua
+Interface\GlueXML\CharacterCreate.xml
 
-RacePatch\DBFilesClient\ChrRaces.dbc
-RacePatch\DBFilesClient\CharBaseInfo.dbc
-RacePatch\DBFilesClient\CharStartOutfit.dbc
-RacePatch\DBFilesClient\SkillLineAbility.dbc
-RacePatch\DBFilesClient\SkillRaceClassInfo.dbc
-RacePatch\DBFilesClient\Faction.dbc
+DBFilesClient\ChrRaces.dbc
+DBFilesClient\CharBaseInfo.dbc
+DBFilesClient\CharStartOutfit.dbc
+DBFilesClient\SkillLineAbility.dbc
+DBFilesClient\SkillRaceClassInfo.dbc
+DBFilesClient\Faction.dbc
 ```
 
-Now that we got our desired files smoothly lined up we can go on to the editing of them.
+Ahora que tenemos nuestros archivos deseados bien alineados podemos pasar a la edición de los mismos.
 
-**Editing The DBC Files**
+**Edición de los archivos DBC**
 
-For this, unless stated otherwise, use your favorite DBC editor.
+Para esto, a menos que se indique lo contrario, usa tu editor favorito de la DBC.
 
-Firstly open up your **ChrRaces.dbc**, you'll see all the races I listed above shows up, now what you want to do is fine these 2 lines:
+Primero abre tu **ChrRaces.dbc**, verás que aparecen todas las razas que he listado arriba, ahora lo que quieres hacer es afinar estas 2 líneas:
 
 ```csv
 9,1,1,0x0,6894,6895,"Go",7,7,15007,0x448,"Goblin",0,0x2,,,"Goblin",,,,,,,,,,,,,,0xFF01FE,,,"Goblin",,,,,,,,,,,,,,0xFF01CC,,,"Gobelin",,,,,,,,,,,,,,0xFF01CC,"NORMAL","NONE","NORMAL",0,
 12,5,1,0x0,16981,16980,"Fo",7,7,15007,0x448,"FelOrc",0,0x2,,,"Fel Orc",,,,,,,,,,,,,,0xFF01FE,,,"Fel Orc",,,,,,,,,,,,,,0xFF01CC,,,"Fel Orc",,,,,,,,,,,,,,0xFF01CC,"NORMAL","NORMAL","NORMAL",0,
 ```
 
-Or something along the lines of that..
+O algo parecido a eso...
 
-Now you want to edit is as follows:
- - 2nd column, it must change by 12 for the race is playable.
- - 4th column defines the faction of the race, see Faction.dbc
- - 8th column, 1 for horde and 7 for alliance. -Taken from Modcraft, see credits
+Ahora quieres editar es como sigue:
+ - 2ª columna, debe cambiar a las 12 para que la raza sea jugable.
+ - La 4ª columna define la facción de la raza, ver **Faction.dbc**
+ - Octava columna, 1 para la horda y 7 para la alianza.
 
-
-Now you want to save and close that. And you want to open up **CharBaseInfo.dbc**, this file determines the class/race combos for your races. So what you want to do is for now only add 2 lines:
+Guardar y cerrar.
+Abrir **CharBaseInfo.dbc**, este archivo determina los combos de clase/raza para tus razas. Así que lo que quieres hacer es por ahora sólo añadir 2 líneas:
 
 ```csv
 9, 1
 12, 1
 ```
 
-This makes it so that Goblin (9) can be warrior and so can Fel Orc (12).
---NOTE: If you're having trouble opening this DBC file Taliis does the job
+Esto hace que el Goblin (9) pueda ser un guerrero y también el Orco Fel (12).
+--Nota: Si tienes problemas para abrir este archivo DBC Taliis hace el trabajo
 
-Now that we're done with that we'll move on to the Lua/XML files, and this is where the fun begins.
+Ahora que hemos terminado con eso pasaremos a los archivos Lua/XML, y aquí es donde comienza la diversión.
 
-**Editing the Interface Files**
+**Edición de los archivos de la interfaz**
 
-Okay so the first thing you want to do is get open the GlueStrings file, in there you'll find many values that you can edit and such, but let's keep it simple and add what we need:
+Bien, lo primero que quieres hacer es abrir el archivo de **GlueStrings**, ahí encontrarás muchos valores que puedes editar y demás, pero mantengámoslo simple y agreguemos lo que necesitemos:
 
-Find
+Busca:
 
 ```lua
 ABILITY_INFO_BLOODELF1 = "- Enchanting skill increased.";
 ```
 
-And on top of that add this:
+Y encima de eso añade esto:
 
 ```lua
 ABILITY_INFO_GOBLIN1 = "- Goblin Racial 1";
@@ -138,13 +137,13 @@ ABILITY_INFO_FELORC3 = "- Fel Orc Racial 3";
 ABILITY_INFO_FELORC4 = "- Fel Orc Racial 4";
 ```
 
-Next find:
+Luego:
 
 ```lua
 RACE_CHANGE_IN_PROGRESS = "Updating Race...";
 ```
 
-after that line insert these:
+después de esa línea inserta estas:
 
 ```lua
 RACE_INFO_GOBLIN = "Information about Goblin males.";
