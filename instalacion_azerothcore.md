@@ -79,14 +79,42 @@ cat /proc/cpuinfo | grep "model name"
 Utilizando el comando `make` con su parámetro `-j` para indicar el número de núcleos, procederemos a compilar. (Lo que hacemos de igual forma en Windows con Visual Studio). En este caso, nosotros usaremos:
 
 ```bash
-make –j 4
+make -j 4
 ```
 
 ![comenzando_la_compilacion](https://user-images.githubusercontent.com/2810187/86737536-be1d0400-c00a-11ea-82f3-a51f60a3337b.png)
 
 Una vez finalizado, obtendremos el siguiente mensaje:
 
-[]
+![compilacion_finalizada](https://user-images.githubusercontent.com/2810187/86740198-d55cf100-c00c-11ea-88c6-6f5a3fb7e949.png)
 
 **NOTA:** A mayor cantidad de procesadores / núcleos, más rápido se realiza la compilación.
 
+Finaliza la instrucción anterior, usaremos el
+
+```bash
+make install
+```
+
+![make_install](https://user-images.githubusercontent.com/2810187/86740141-cc6c1f80-c00c-11ea-941a-8c20113cb2e8.png)
+
+Lo que moverá nuestros archivos al directorio `$HOME/azeroth-server`. En el mismo tendremos 2 directorio. `bin` que es donde se encuentran los ejecutables y donde debemos subir los dbc, maps, mmaps, vmaps. También se generan los logs del servidor. Y la carpeta `etc` donde se generan los archivos de configuración como `worldserver.conf.dist` y `authserver.conf.dist`
+
+Con esta guía, haremos por concluida la compilación del emulador. Luego, falta crear las bases de datos, generar las tablas y hacer las configuraciones básicas para poder utilizar el servidor y tenerlo corriendo.
+
+NOTA: Ni bien comenzamos con la guía, les mencione una forma de poder darle permisos a los procesos de ciertos usuarios, eso lo podemos hacer de la siguiente manera. Primero, ingresamos con el usuario común, aquel que usamos para crear el servidor y donde se encuentran los ficheros. Accedemos al root, con:
+
+```bash
+su -
+```
+
+Y utilizamos el siguiente comando
+
+```bash
+renice -n -15 -u azerothwow
+```
+
+![renice](https://user-images.githubusercontent.com/2810187/86740074-c0805d80-c00c-11ea-9076-75d7f37504f1.png)
+
+ - https://www.azerothcore.org/wiki/Installation
+ - https://www.daniloaz.com/es/como-saber-cuantos-procesadores-y-nucleos-tiene-una-maquina-linux/
