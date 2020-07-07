@@ -20,7 +20,7 @@ Una vez, instalas las dependencias de manera correcta, recomiendo no utilizar el
 
 En Linux, para crear un usuario, tenemos 2 comandos, yo normalmente utilizo el siguiente:
 
-````bash
+```bash
 adduser <nombre>
 ```
 
@@ -34,3 +34,11 @@ adduser azerothwow
 Nos hará un par de preguntas, la primera de ella es la contraseña y luego preguntas opcionales que simplemente podemos ir salteando sin la necesidad de completarlas (Presionando la tecla enter). Nos creara una carpeta de usuario, ubicada dentro del directorio `/home` con nuestro nombre de usuario, pero no se preocupen, que no lo vamos a necesitar, debido a que contamos con la variable de entorno `$HOME` que almacena en todo momento, la ruta a nuestra carpeta de usuario (el usuario que tenga la sesión activa)
 
 Ya no tenemos que hacer más nada con nuestro usuario `root` en caso de que hayamos usado el mismo para instalar las dependencias. NOTA: si realizaste la instalación de las dependencias con un usuario `sudo` no es necesario que quizás crees un nuevo usuario, aunque sería recomendable, para tener las cosas relacionadas al wow, en una carpeta totalmente independiente.
+
+Bien, ahora tenemos que descargar el repositorio, lo vamos a hacer mediante `git`
+
+En la guía original, menciona 3 opciones de clonación, yo me voy a centrar en la opción número 1, que es la recomendada, dado que solamente estamos descargando la rama MASTER que es la de producción, que es estable y a que los desarrolladores, aportan código mediante pull request (solicitudes de cambios)
+
+```bash
+git clone https://github.com/azerothcore/azerothcore-wotlk.git --branch master --single-branch azerothcore
+```
