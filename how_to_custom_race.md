@@ -91,7 +91,7 @@ Primero abre tu **ChrRaces.dbc**, verás que aparecen todas las razas que he lis
 
 ```csv
 9,1,1,0x0,6894,6895,"Go",7,7,15007,0x448,"Goblin",0,0x2,,,"Goblin",,,,,,,,,,,,,,0xFF01FE,,,"Goblin",,,,,,,,,,,,,,0xFF01CC,,,"Gobelin",,,,,,,,,,,,,,0xFF01CC,"NORMAL","NONE","NORMAL",0,
-12,5,1,0x0,16981,16980,"Fo",7,7,15007,0x448,"FelOrc",0,0x2,,,"Fel Orc",,,,,,,,,,,,,,0xFF01FE,,,"Fel Orc",,,,,,,,,,,,,,0xFF01CC,,,"Fel Orc",,,,,,,,,,,,,,0xFF01CC,"NORMAL","NORMAL","NORMAL",0,
+12,5,1,0x0,16981,16980,"Fo",1,7,15007,0x448,"FelOrc",0,0x1,,,"Fel Orc",,,,,,,,,,,,,,0xFF01FE,,,"Fel Orc",,,,,,,,,,,,,,0xFF01CC,,,"Fel Orc",,,,,,,,,,,,,,0xFF01CC,"NORMAL","NORMAL","NORMAL",0,
 ```
 
 O algo parecido a eso...
@@ -110,7 +110,7 @@ Abrir **CharBaseInfo.dbc**, este archivo determina los combos de clase/raza para
 ```
 
 Esto hace que el Goblin (9) pueda ser un guerrero y también el Orco Fel (12).
---Nota: Si tienes problemas para abrir este archivo DBC Taliis hace el trabajo
+**Nota:** Si tienes problemas para abrir este archivo DBC Taliis hace el trabajo
 
 Ahora que hemos terminado con eso pasaremos a los archivos Lua/XML, y aquí es donde comienza la diversión.
 
@@ -152,24 +152,24 @@ RACE_INFO_FELORC = "Information about Fel Orc males.";
 RACE_INFO_FELORC_FEMALE = "Information about Fel Orc females.";
 ```
 
-And you're done with **GlueStrings.lua**, close it down (remember to save ofc) and we'll move on to **GlueParent.lua**
+Y ya has terminado con **GlueStrings.lua**, ciérralo (recuerda guardar) y pasaremos a **GlueParent.lua**
 
-So as you now see this is what the ModCraft tutorial didn't cover, and it's here that many people fail, so therefore I'll complete this part.
+Como veis, esto es lo que el tutorial de ModCraft no cubría, y es aquí donde mucha gente falla, por lo que completaré esta parte.
 
-Firstly you want to open up **GlueParent.lua** (of course) and then search for
+Primero quieres abrir **GlueParent.lua** y luego buscar
 
 ```lua
 GlueAmbienceTracks["CHARACTERSELECT"] = "GlueScreenIntro";
 ```
 
-After this line add these 2:
+Después de esta línea añada estos 2:
 
 ```lua
 GlueAmbienceTracks["GOBLIN"] = "GlueScreenIntro";
 GlueAmbienceTracks["FELORC"] = "GlueScreenIntro";
 ```
 
-Now you want to go to around:
+Ahora quieres ir por ahí:
 
 ```lua
 CHARACTERSELECT = {
@@ -179,7 +179,7 @@ CHARACTERSELECT = {
 },
 ```
 
-and after that you should add:
+y después de eso deberías añadir:
 
 ```lua
 GOBLIN = {
@@ -195,15 +195,13 @@ FELORC = {
 },
 ```
 
-This will add the light so the models are lightened up and nice
-
-After this you want to go to:
+Esto añadirá la luz para que las maquetas estén más iluminadas y sean más bonitas. Después de esto quieres ir a:
 
 ```lua
 function SetBackgroundModel(model, name)
 ```
 
-and replace that whole function with:
+y reemplazar toda esa función con:
 
 ```lua
 function SetBackgroundModel(model, name)
@@ -230,26 +228,26 @@ function SetBackgroundModel(model, name)
 end
 ```
 
-This will make the goblin and the Fel Orc appear as if they had the orc character creation background.
+Esto hará que el duende y el Orco aparezcan como si tuvieran el fondo de creación del personaje orco.
 
-You're now done with the GlueParent.lua and can move on to the CharacterCreate.lua, firstly open it and go to
+Ya has terminado con el GlueParent.lua y puedes pasar al CharacterCreate.lua, primero ábrelo y ve a
 
 ```lua
 MAX_RACES = 10;
 ```
-and edit that to
+y editar eso para
 ```lua
 MAX_RACES = 12;
 ```
 
-Find
+Encuentra
 
 ```lua
 ["DRAENEI_MALE"] = {0.5, 0.625, 0, 0.25},
 ["DRAENEI_FEMALE"] = {0.5, 0.625, 0.5, 0.75},
 ```
 
-After that add:
+Después de eso agregue:
 
 ```lua
 ["GOBLIN_MALE"] = {0.625, 0.625, 0, 0.25},
@@ -259,9 +257,8 @@ After that add:
 ["FELORC_FEMALE"] = {0.5, 0.625, 0, 0.25},
 ```
 
--This will add the Draenei icons to the character creation screen since I haven't quite figured out the icon placement coord system.
-
-Next you'll close down Charactercreate.lua and open up **CharacterCreate.xml**, you'll want to find:
+Esto añadirá los iconos Draenei a la pantalla de creación de personajes, ya que no he descubierto el sistema de coordinación de la colocación de los iconos.
+A continuación cerrará Charactercreate.lua y abrirá **CharacterCreate.xml**, que querrá encontrar:
 
 ```xml
 <CheckButton name="CharacterCreateRaceButton1" inherits="CharacterCreateRaceButtonTemplate" id="1">
@@ -315,7 +312,7 @@ Next you'll close down Charactercreate.lua and open up **CharacterCreate.xml**, 
 	</Anchors>
 </CheckButton>
 ```
-and replace it with
+y reemplazarlo con
 ```xml
 <CheckButton name="CharacterCreateRaceButton1" inherits="CharacterCreateRaceButtonTemplate" id="1">
 	<Anchors>
@@ -379,15 +376,13 @@ and replace it with
 </CheckButton>
 ```
 
-Now if you did it right all your files should be correctly edited, you now want to copy those file into a patch, I assume you already know how to make a custom patch so I'll skip over that.. What you want to do now is add your files to a patch (all the files in the directory RacePatch or whatever you called it)
+Si lo hiciste bien, todos tus archivos deben ser editados correctamente, ahora quieres copiar esos archivos en un parche, asumo que ya sabes cómo hacer un parche personalizado, así que me saltaré eso... Lo que quieres hacer ahora es añadir tus archivos a un parche (todos los archivos del directorio RacePatch o como quiera que lo llames)
 
-Now you could basically go into the game but it would say your files are corrupt, you need this:
+Ahora, básicamente podrías entrar en el juego pero diría que tus archivos están corruptos, necesitas esto:
 
-and then copy the DBC files only to your core, you should now have this: http://modcraft.superparanoid.de/viewtopic.php?f=59&t=883 download and run as the instructions says.
+y luego copiar los archivos DBC sólo en tu núcleo, ahora deberías tener esto: http://modcraft.superparanoid.de/viewtopic.php?f=59&t=883 descargar y ejecutar como dicen las instrucciones.
 
-Now you should have something like this if you did it right: http://img11.imageshack.us/img11/5614/27966a4a76ee4d6db776d6c.png
-
-Done with client side modifications :-)
+Hecho con modificaciones del lado del cliente :-)
 
 **Server-Side Modifications**
 
@@ -486,28 +481,12 @@ and replace it with:
 (1<<(RACE_BLOODELF-1))|(1<<(RACE_DRAENEI-1)) |(1<<(RACE_FEL_ORC-1)) )
 ```
 
-Now you're done with the core mods.. Moving on to..
+Ahora ya has terminado con las modificaciones del núcleo... Pasando a...
 
-**SQL Modifications:**
+**Modificaciones del SQL:**
 
-Some querys you'd have to run (copy pasted from modcraft):
-Adding spells to the Goblin Warrior (copied from the Human Warrior):
-
-```sql
-SET @NEW_RACE = 9; -- ID of adding race.
-SET @NEW_CLASS = 1; -- ID of class of the new race.
-SET @COPY_RACE = 1; -- ID of the race where we copy datas.
-DELETE FROM `playercreateinfo_spell` WHERE `race`=@NEW_RACE AND `class`=@NEW_CLASS ;
-INSERT INTO `playercreateinfo_spell` (`race`, `class`, `Spell`, `Note`)
-SELECT @NEW_RACE, @NEW_CLASS, `Spell`, `Note` FROM `playercreateinfo_spell` WHERE `race`=@COPY_RACE AND `class`=@NEW_CLASS;
-```
-
-Continuation:
-
-**SQL Modifications:**
-
-Some querys you'd have to run (copy pasted from modcraft):
-Adding spells to the Goblin Warrior (copied from the Human Warrior):
+Algunas consultas que tendrías que ejecutar (copiar pegado de modcraft):
+Añadiendo hechizos al Guerrero Duende (copiado del Guerrero Humano):
 
 ```sql
 SET @NEW_RACE = 9; -- ID of adding race.
@@ -518,7 +497,7 @@ INSERT INTO `playercreateinfo_spell` (`race`, `class`, `Spell`, `Note`)
 SELECT @NEW_RACE, @NEW_CLASS, `Spell`, `Note` FROM `playercreateinfo_spell` WHERE `race`=@COPY_RACE AND `class`=@NEW_CLASS;
 ```
 
-Adding spells to the Fel Orcs Warrior (copied from the Orc Warrior):
+Añadiendo hechizos al Guerrero Orcos Felinos (copiado del Guerrero Orcos):
 
 ```sql
 SET @NEW_RACE = 12; -- ID of adding race.
@@ -529,7 +508,7 @@ INSERT INTO `playercreateinfo_spell` (`race`, `class`, `Spell`, `Note`)
 SELECT @NEW_RACE, @NEW_CLASS, `Spell`, `Note` FROM `playercreateinfo_spell` WHERE `race`=@COPY_RACE AND `class`=@NEW_CLASS;
 ```
 
-Buttons Action Goblin Warrior (copied on Human Warrior):
+Botones de acción del goblin, copiados del guerrero humano.
 
 ```sql
 SET @NEW_RACE = 9; -- ID of adding race.
@@ -540,7 +519,7 @@ INSERT INTO `playercreateinfo_action` (`race`, `class`, `button`, `action`, `typ
 SELECT @NEW_RACE, @NEW_CLASS, `button`, `action`, `type` FROM `playercreateinfo_action` WHERE `race`=@COPY_RACE AND `class`=@NEW_CLASS;
 ```
 
-Buttons Action Fel Orcs Warrior (copied on Orc Warrior):
+Los botones del ORC FEL, copiados del ORC traduccional.
 
 ```sql
 SET @NEW_RACE = 12; -- ID of adding race.
@@ -551,20 +530,20 @@ INSERT INTO `playercreateinfo_action` (`race`, `class`, `button`, `action`, `typ
 SELECT @NEW_RACE, @NEW_CLASS, `button`, `action`, `type` FROM `playercreateinfo_action` WHERE `race`=@COPY_RACE AND `class`=@NEW_CLASS;
 ```
 
-Starting location of Goblin Warrior (= Humans):
+Ubicación inicial de Guerrero Duende (=Humanos):
 
 ```sql
 INSERT INTO `playercreateinfo` (`race`, `class`, `map`, `zone`, `position_x`, `position_y`, `position_z`) VALUES
 ('9','1','0','12','-8949.95','-132.493','83.5312');
 ```
-Starting location of Fel Orc Warrior (= Orcs)
+Ubicación inicial del Guerrero Orco Fel (= Orcos)
 
 ```sql
 INSERT INTO `playercreateinfo` (`race`, `class`, `map`, `zone`, `position_x`, `position_y`, `position_z`) VALUES
 ('12','1','1','14','-618.518','-4251.67','38.718');
 ```
 
-Levels for the Goblin Warrior (copied on Human Warrior)
+Niveles para el Guerrero Duende (copiado en Human Warrior)
 
 ```sql
 SET @NEW_RACE = 9; -- ID of adding race.
@@ -575,7 +554,7 @@ INSERT INTO `player_levelstats` (`race`, `class`, `level`, `str`, `agi`, `sta`, 
 SELECT @NEW_RACE, @NEW_CLASS, `level`, `str`, `agi`, `sta`, `inte`, `spi` FROM `player_levelstats` WHERE `race`=@COPY_RACE AND `class`=@NEW_CLASS;
 ```
 
-Levels for the Fel Orc Warrior (copied on Orc Warrior)
+Niveles para el Guerrero Orco Fel (copiado en Guerrero Orco)
 
 ```sql
 SET @NEW_RACE = 12; -- ID of adding race.
@@ -588,64 +567,64 @@ SELECT @NEW_RACE, @NEW_CLASS, `level`, `str`, `agi`, `sta`, `inte`, `spi` FROM `
 
 **Misc**
 
-Now you're nearly done, your character can be setup and it'll be actually playable.
-Now I'm just gonna copy some stuff from the modcraft guide that might be useful here at this last post:
+Ahora que casi has terminado, tu personaje puede ser configurado y será realmente jugable.
+Ahora voy a copiar algunas cosas de la guía de modcraft que pueden ser útiles aquí en este último post:
 
-Display helmets
-Open **ChrRaces.dbc**:
+Abre **ChrRaces.dbc**:
 
-At the 7th column, you have the abbreviation of the race, eg Go for GOBLIN. This abbreviation is actually only used for display helmet. You can modify an abbreviation of existing race for the helmets appear, for example by replacing Hu.
+En la séptima columna, tienes la abreviatura de la raza, por ejemplo, "Go for GOBLIN". Esta abreviatura en realidad sólo se usa para el casco de exhibición. Puedes modificar una abreviatura de la raza existente para que aparezcan los cascos, por ejemplo reemplazando Hu.
 
-Problem: The helmets are misplaced, such as too forward, too high, etc. ... To fix this, simply move the Attachment Point No. 11 (which corresponds to the placement of the helmet) on two M2 model race (GoblinMale.m2 and GoblinFemale.m2 for example). You can use Mod-It for this.
+Problema: Los cascos están mal colocados, como demasiado adelante, demasiado alto, etc. ... Para solucionarlo, basta con desplazar el punto de fijación nº 11 (que corresponde a la colocación del casco) en dos carreras del modelo M2 (GoblinMale.m2 y GoblinFemale.m2 por ejemplo). Para ello puede utilizar el Mod-It.
 
-There are other more "clean" way to fix helmets but longer.
+Hay otras formas más "limpias" de arreglar los cascos, pero más largas.
 
 **Languages and skills**
 
-Basically, you can not learn language or skills. Indeed, the game uses a verification which is configured for each Skills. We will have to modify all the skills you'll want that the race will be use.
+Básicamente, no puedes aprender el lenguaje o las habilidades. De hecho, el juego utiliza una verificación que está configurada para cada habilidad. Tendremos que modificar todas las habilidades que quieras que se usen en la raza.
 
-We'll take the example of the Common Language (Skill n°98).
-Open **SkillLineAbility.dbc**:
+Tomaremos el ejemplo del Lenguaje Común (Habilidad n°98).
+Abre **SkillLineAbility.dbc**:
 
-Find:
+Encuentra:
 ```csv
-Quote:590,98,668,1101,0,,,1,0,0x2,0,0,,,
+590,98,668,1101,0,,,1,0,0x2,0,0,,,
 ```
 
-We must consider the 4th column, the 1101 value. Transform this number into binary (eg with http://www.michelcarrare.com/demos/converter.php) You will find in our
+Debemos considerar la cuarta columna, el valor 1101. Transformar este número en binario (por ejemplo, con https://es.calcuworld.com/calculadoras-matematicas/calculadora-binaria/)
 
-case:
+Al convertirlo, obtendremos el siguiente valor.
 10001001101
 
-Every "1" allows the Skill for the race with ID equal to the position:
+Cada "1" permite la habilidad para la carrera con una identificación igual a la posición:
 
-IDRace : 11 | 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1
+| Draenei | Bloodelf | Goblin | Troll | Gnome | Tauren | Undead | Nightelf | Dwarf | Orc | Human |
+|:-------:|:--------:|:------:|:-----:|:-----:|:------:|:------:|:--------:|:-----:|:---:|:-----:|
+|    1    |     0    |    0   |   0   |   1   |    0   |    0   |     1    |   1   |  0  |   1   |
 
-1 0 0 0 1 0 0 1 1 0 1
 
+Es necesario poner 1 para la identificación de su raza. Para el duende, su ID 9, así que tenemos:
 
-It is necessary to put 1 for the ID of your race. For the goblin, its ID 9, so we have:
-IDRace : 11 | 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1
+| Draenei | Bloodelf | Goblin | Troll | Gnome | Tauren | Undead | Nightelf | Dwarf | Orc | Human |
+|:-------:|:--------:|:------:|:-----:|:-----:|:------:|:------:|:--------:|:-----:|:---:|:-----:|
+|    1    |     0    |    1   |   0   |   1   |    0   |    0   |     1    |   1   |  0  |   1   |
 
-1 0 1 0 1 0 0 1 1 0 1
-
-Then just reprocess this new value in decimal:
+Entonces reprocesa este nuevo valor en decimal:
 
 (bin)10101001101 = (dec)1357
 
-So, we have this:
+Entonces, tenemos esto:
 
 ```csv
 590,98,668,1357,0,,,1,0,0x2,0,0,,,
 ```
 
-Hey! And if my ID is 14 to the race? How can I do?
+¡Oye! ¿Y si mi identificación es 14 para la carrera? ¿Cómo puedo hacerlo?
 
-Well it is the same way, by adding 0:
+Bueno, es de la misma manera, añadiendo 0:
 
-IDRace : 14 | 13 | 12 | 11 | 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1
-
-1 0 0 1 0 0 0 1 0 0 1 1 0 1
+| 14 | 13 | 12 | 11 | 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 |
+|:--:|:--:|:--:|:--:|:--:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|  1 |  0 |  0 |  1 |  0 | 0 | 0 | 1 | 0 | 0 | 1 | 1 | 0 | 1 |
 
 
 Open **SkillRaceClassInfo.dbc**:
