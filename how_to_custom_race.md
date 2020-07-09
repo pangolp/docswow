@@ -384,13 +384,13 @@ y luego copiar los archivos DBC sólo en tu núcleo, ahora deberías tener esto:
 
 Hecho con modificaciones del lado del cliente :-)
 
-**Server-Side Modifications**
+**Modificaciones del lado del servidor**
 
-Now in this last part we want to edit the server side so you can actually play these races
+Ahora en esta última parte queremos editar el lado del servidor para que puedas jugar estas razas
 
-Go to **SharedDefines.h** in your core and open it up
+Ve a **SharedDefines.h** en tu núcleo y ábrelo
 
-Find:
+Encuentra:
 
 ```c++
 enum Races
@@ -420,7 +420,7 @@ enum Races
 };
 ```
 
-Replace by:
+Reemplazar por:
 
 ```c++
 enum Races
@@ -450,19 +450,20 @@ enum Races
 };
 ```
 
-Now find:
+Ahora encuentra:
 
 ```c++
 #define MAX_RACES 12
 ```
-and replace with
+y reemplazarlo con
 ```c++
 #define MAX_RACES 13
 ```
 
-The max_races variable is basically just the race number + 1 so if you had let's say Tuskarr for you highest number race it would be 17+1=18, pretty simple, ah?
+La variable `MAX_RACES` es básicamente el número de la raza + 1, así que si tuvieras que decir TUSKARR para tu raza de mayor número sería **17 + 1 = 18**, bastante simple, ¿no?
 
-Now find
+Ahora encuentra
+
 ```c++
 #define RACEMASK_ALL_PLAYABLE \
 ((1<<(RACE_HUMAN-1)) |(1<<(RACE_ORC-1)) |(1<<(RACE_DWARF-1)) | \
@@ -471,7 +472,7 @@ Now find
 (1<<(RACE_DRAENEI-1)))
 ```
 
-and replace it with:
+y reemplazarlo por:
 
 ```c++
 #define RACEMASK_ALL_PLAYABLE \
@@ -610,7 +611,7 @@ Es necesario poner 1 para la identificación de su raza. Para el duende, su ID 9
 
 Entonces reprocesa este nuevo valor en decimal:
 
-(bin)10101001101 = (dec)1357
+(binario): **10101001101** = (decimal): **1357**
 
 Entonces, tenemos esto:
 
@@ -627,46 +628,47 @@ Bueno, es de la misma manera, añadiendo 0:
 |  1 |  0 |  0 |  1 |  0 | 0 | 0 | 1 | 0 | 0 | 1 | 1 | 0 | 1 |
 
 
-Open **SkillRaceClassInfo.dbc**:
+Abre **SkillRaceClassInfo.dbc**:
 
-Find:
+Busca:
 
 ```csv
-Quote:40,98,1101,1535,0x80,0x0,0,0x0,
+40,98,1101,1535,0x80,0x0,0,0x0,
 ```
 
-You see the 1101 in the 3rd column? Do as above.
+¿Ves el 1101 en la tercera columna? Haz lo mismo que arriba.
 
-Reminder
-You must do this for all Skills that you want to allow.
+**Recordatorio**
+Debes hacer esto por todas las habilidades que quieras permitir.
 
-Information
-This technique can be used on your existing races, particularly for languages.
+**Información**
+Esta técnica puede ser usada en sus razas existentes, particularmente para los idiomas.
 
-Allowing Reputations
+**Reputaciones**
 
-Open **Faction.dbc**:
-For example, suppose we want allow reputation Stormwind for Goblin, find:
+Abre **Faction.dbc**:
+Por ejemplo, supongamos que queremos permitir la reputación de Stormwind para Goblin, encontrar:
 
 ```csv
 72,19,1100,690,0x1,0x0,0,0,0x0,0x0,3100,-42000,4000,0,0x111,6,0x11,0x0,469,1.0,0.25,7,5,,,"Hurlevent",,,,,,,,,,,,,,0xFF01FE,,,"Cette capitale de l’Alliance est l’un des derniers bastions de la puissance des humains. Elle est gouvernée par le roi Varian Wrynn, revenu après une disparition mystérieuse.",,,,,,,,,,,,,,0xFF01FE,
 ```
 
+Bueno, toma esta parte de la línea:
 
-Well take this part of the line:
-
+```csv
 1100, 690, 0x1, 0x0,[...] 3100, -42000, 4000,0,
+```
 
-Races 1 | Races 2 | Races 3 | Races 4 | Rep for races 1 | Rep for races 2 | Rep for races 3 ...
+**Races 1 | Races 2 | Races 3 | Races 4 | Rep for races 1 | Rep for races 2 | Rep for races 3 ...**
 
-You understand? 1100 corresponds to all races of the alliance except humans who begin the game with 3,100 reputation. 690 races is the hord, they begin with -42,000 and finally 1 for humans starting with 4000.
-So if we want Goblins (ID 9) can start with 3100 (and that reputation is allowed to be used for this race and saved by the server), you must edit 1100 by 1356 (detailed explanations in the activation of languages and skills).
-We must do this for all Reputations. No worries, using "Replace All" with your favorite text editor, it will save time.
-For example: 1791 means all races of the alliance. So if the goblin is in the alliance, we must add to all the "1791" be replaced 1791 by 2047. Then do manual handling to the capitals (as Stormwind).
+¿Entiendes? 1100 corresponde a todas las razas de la alianza excepto los humanos que comienzan el juego con 3.100 de reputación. 690 razas es el hord, empiezan con -42.000 y finalmente 1 para los humanos empezando con 4000. Así que si queremos que los duendes (ID 9) puedan comenzar con 3100 (y que la reputación sea permitida para ser usada para esta raza y guardada por el servidor), debes editar 1100 por 1356 (explicaciones detalladas en la activación de idiomas y habilidades).
+
+Debemos hacer esto por todas las reputaciones. No te preocupes, usando "Reemplazar todo" con tu editor de texto favorito, ahorrará tiempo. Por ejemplo: **1791** significa todas las razas de la alianza. Así que si el duende está en la alianza, debemos añadir a todos los "1791" ser reemplazado 1791 por 2047. Luego hacer el manejo manual a las capitales (como Stormwind).
 
 
-Now you should be pretty much done, thank you for reading my guide hope you found it useful :-)
+Ahora ya deberías haber terminado, gracias por leer mi guía, espero que la hayas encontrado útil.
 
 Credits:
- - Me (Mathix)
+ - Mathix
  - http://modcraft.superparanoid.de/viewtopic.php?f=26&t=165
+ - pangolp (traducciones y uso de markdown)
