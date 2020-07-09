@@ -575,7 +575,7 @@ Abre **ChrRaces.dbc**:
 
 En la séptima columna, tienes la abreviatura de la raza, por ejemplo, "Go for GOBLIN". Esta abreviatura en realidad sólo se usa para el casco de exhibición. Puedes modificar una abreviatura de la raza existente para que aparezcan los cascos, por ejemplo reemplazando Hu.
 
-Problema: Los cascos están mal colocados, como demasiado adelante, demasiado alto, etc. ... Para solucionarlo, basta con desplazar el punto de fijación nº 11 (que corresponde a la colocación del casco) en dos carreras del modelo M2 (GoblinMale.m2 y GoblinFemale.m2 por ejemplo). Para ello puede utilizar el Mod-It.
+Problema: Los cascos están mal colocados, como demasiado adelante, demasiado alto, etc. ... Para solucionarlo, basta con desplazar el punto de fijación nº 11 (que corresponde a la colocación del casco) en dos razas del modelo M2 (GoblinMale.m2 y GoblinFemale.m2 por ejemplo). Para ello puede utilizar el Mod-It.
 
 Hay otras formas más "limpias" de arreglar los cascos, pero más largas.
 
@@ -619,7 +619,7 @@ Entonces, tenemos esto:
 590,98,668,1357,0,,,1,0,0x2,0,0,,,
 ```
 
-¡Oye! ¿Y si mi identificación es 14 para la carrera? ¿Cómo puedo hacerlo?
+¡Oye! ¿Y si mi identificación es 14 para la raza? ¿Cómo puedo hacerlo?
 
 Bueno, es de la misma manera, añadiendo 0:
 
@@ -636,7 +636,7 @@ Busca:
 40,98,1101,1535,0x80,0x0,0,0x0,
 ```
 
-¿Ves el 1101 en la tercera columna? Haz lo mismo que arriba.
+¿Ves el **1101** en la tercera columna? Haz lo mismo que arriba.
 
 **Recordatorio**
 Debes hacer esto por todas las habilidades que quieras permitir.
@@ -661,9 +661,9 @@ Bueno, toma esta parte de la línea:
 
 **Races 1 | Races 2 | Races 3 | Races 4 | Rep for races 1 | Rep for races 2 | Rep for races 3 ...**
 
-¿Entiendes? 1100 corresponde a todas las razas de la alianza excepto los humanos que comienzan el juego con 3.100 de reputación. 690 razas es el hord, empiezan con -42.000 y finalmente 1 para los humanos empezando con 4000. Así que si queremos que los duendes (ID 9) puedan comenzar con 3100 (y que la reputación sea permitida para ser usada para esta raza y guardada por el servidor), debes editar 1100 por 1356 (explicaciones detalladas en la activación de idiomas y habilidades).
+¿Entiendes? **1100** corresponde a todas las razas de la alianza excepto los humanos que comienzan el juego con **3.100** de reputación. **690** razas es el horda, empiezan con **-42.000** y finalmente **1** para los humanos empezando con **4000**. Así que si queremos que los duendes (ID 9) puedan comenzar con **3100** (y que la reputación sea permitida para ser usada para esta raza y guardada por el servidor), debes editar **1100** por **1356** (explicaciones detalladas en la activación de idiomas y habilidades).
 
-Debemos hacer esto por todas las reputaciones. No te preocupes, usando "Reemplazar todo" con tu editor de texto favorito, ahorrará tiempo. Por ejemplo: **1791** significa todas las razas de la alianza. Así que si el duende está en la alianza, debemos añadir a todos los "1791" ser reemplazado 1791 por 2047. Luego hacer el manejo manual a las capitales (como Stormwind).
+Debemos hacer esto por todas las reputaciones. No te preocupes, usando "Reemplazar todo" con tu editor de texto favorito, ahorrará tiempo. Por ejemplo: **1791** significa todas las razas de la alianza. Así que si el duende está en la alianza, debemos reemplazar los **1791** por **2047**. Luego hacer el manejo manual a las capitales (como Stormwind).
 
 
 Ahora ya deberías haber terminado, gracias por leer mi guía, espero que la hayas encontrado útil.
