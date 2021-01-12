@@ -2,7 +2,7 @@
 
 It provides information about the types of events.
 
-- SMART_EVENT_UPDATE_IC
+## SMART_EVENT_UPDATE_IC
 
 This event is used when entering a combat.
 
@@ -16,7 +16,7 @@ This event is used when entering a combat.
 |------------|--------------|--------------|--------------|--------------|--------------|
 | 0          | 7000         | 8000         | 10000        | 11000        | 0            |
 
-- SMART_EVENT_UPDATE_OOC
+## SMART_EVENT_UPDATE_OOC
 
 This event, is used, when going out of combat
 
