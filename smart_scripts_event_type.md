@@ -6,9 +6,9 @@ It provides information about the types of events.
 
 This event is used when entering a combat.
 
-| Name                  | Value | Param1     | Param2     | Param3    | Param4    | Param5 | Comment    |
-|-----------------------|-------|------------|------------|-----------|-----------|--------|------------|
-| SMART_EVENT_UPDATE_IC | 0     | InitialMin | InitialMax | RepeatMin | RepeatMax |        | In combat. |
+| Name                  | Value | Param1     | Param2     | Param3    | Param4    | Param5 |
+|-----------------------|-------|------------|------------|-----------|-----------|--------|
+| SMART_EVENT_UPDATE_IC | 0     | InitialMin | InitialMax | RepeatMin | RepeatMax |        |
 
 **Example**
 
@@ -20,9 +20,9 @@ This event is used when entering a combat.
 
 This event, is used, when going out of combat
 
-| Name                   | Value | Param1     | Param2     | Param3    | Param4    | Param5 | Comment        |
-|------------------------|-------|------------|------------|-----------|-----------|--------|----------------|
-| SMART_EVENT_UPDATE_OOC | 1     | InitialMin | InitialMax | RepeatMin | RepeatMax |        | Out of combat. |
+| Name                   | Value | Param1     | Param2     | Param3    | Param4    | Param5 |
+|------------------------|-------|------------|------------|-----------|-----------|--------|
+| SMART_EVENT_UPDATE_OOC | 1     | InitialMin | InitialMax | RepeatMin | RepeatMax |        |
 
 **Example**
 
