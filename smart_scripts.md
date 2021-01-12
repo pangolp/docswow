@@ -206,7 +206,7 @@ This is the probability of the event to occur as a percentage from 0-100. So, if
 - Sets if the event should not repeat or should only happen in a given instance/dungeon difficulty (if applicable);
 - Values can be added together (bitwise math).
 
-### [event\_type](smart_scripts_event_type)
+### [event\_type](smart_scripts_event_type.md)
 
 | Name                              | Value |
 |-----------------------------------|-------|
