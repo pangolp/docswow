@@ -4,6 +4,8 @@ It provides information about the types of events.
 
 - SMART_EVENT_UPDATE_IC
 
+This event is used when entering a combat.
+
 | Name                  | Value | Param1     | Param2     | Param3    | Param4    | Param5 | Comment    |
 |-----------------------|-------|------------|------------|-----------|-----------|--------|------------|
 | SMART_EVENT_UPDATE_IC | 0     | InitialMin | InitialMax | RepeatMin | RepeatMax |        | In combat. |
@@ -15,6 +17,8 @@ It provides information about the types of events.
 | 0          | 7000         | 8000         | 10000        | 11000        | 0            |
 
 - SMART_EVENT_UPDATE_OOC
+
+This event, is used, when going out of combat
 
 | Name                   | Value | Param1     | Param2     | Param3    | Param4    | Param5 | Comment        |
 |------------------------|-------|------------|------------|-----------|-----------|--------|----------------|
